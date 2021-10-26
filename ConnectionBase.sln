@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionBase", "ConnectionBase\ConnectionBase.csproj", "{DEDB2B1E-A563-4D55-B414-5174CE932815}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEDB2B1E-A563-4D55-B414-5174CE932815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDB2B1E-A563-4D55-B414-5174CE932815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDB2B1E-A563-4D55-B414-5174CE932815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDB2B1E-A563-4D55-B414-5174CE932815}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF803BFE-A757-4D4E-90C6-B58A65D46000}
+	EndGlobalSection
+EndGlobal
