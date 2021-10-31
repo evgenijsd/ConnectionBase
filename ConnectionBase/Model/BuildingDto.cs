@@ -1,4 +1,4 @@
-﻿namespace ConnectionBase.API.DTO
+﻿namespace ConnectionBase.Model
 {
     public partial class BuildingDto
     {

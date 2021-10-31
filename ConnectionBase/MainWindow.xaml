@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectionBase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,206,0,0" VerticalAlignment="Top"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Результирующие таблицы" FontSize="20" Margin="150,300,150,300" Click="ButtonResult_Click" />
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Content="Установка соединений" FontSize="20" Margin="150,130,150,130" Click="ButtonConnection_Click" />
+                <Button Content="Ввод данных (вразработке)" Grid.Row="1" FontSize="20" Margin="150,130,150,130" IsEnabled="False"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

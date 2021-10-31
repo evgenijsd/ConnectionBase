@@ -10,9 +10,4 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="View\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
-
 </Project>
