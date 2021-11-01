@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,5 +17,9 @@ namespace ConnectionBase.Model
         public int? Device { get; set; }
         public int? Building { get; set; }
         public int? Room { get; set; }
+        public string DevCross { get; set; }
+
+        public ObservableCollection<BuildingDto> Buildings { get; set; }
+        public ObservableCollection<RoomDto> Rooms { get; set; }
     }
 }

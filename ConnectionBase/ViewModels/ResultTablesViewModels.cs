@@ -4,56 +4,88 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace ConnectionBase.ViewModels
 {
     public class ResultTablesViewModels : INotifyPropertyChanged
     {
-        private PersonDto selectedPerson;
-        private DevicePersonDto selectedDevicePerson;
-        private GenerationList selectedListItem;
+        
 
         public ResultTablesViewModels()
         {
             People = GetEntity.GetList<PersonDto>("api/Person/all");
+            Operators = GetEntity.GetList<OperatorDto>("api/Operator/all");
+            Crosses = GetEntity.GetList<CrossDto>("api/Cross/all");
+            Buildings = GetEntity.GetList<BuildingDto>("api/Building/all");
+            Rooms = GetEntity.GetList<RoomDto>("api/Room/all");
+            Devices = GetEntity.GetList<DeviceDto>("api/Device/all");
+            Models = GetEntity.GetList<DeviceModelDto>("api/DeviceModel/all");
+            Departs = GetEntity.GetList<DepartDto>("api/Depart/all");
+
             DevicePeople = GetEntity.GetList<DevicePersonDto>("api/DevicePerson/all");
-            foreach (DevicePersonDto d in DevicePeople) d.People = People;
+            foreach (DevicePersonDto d in DevicePeople){
+                d.People = People; d.Departs = Departs;
+                if (d.Person != null) d.Depart = People.FirstOrDefault(x => x.PersonId == d.Person).Depart;
+            }
+
             GenList = GetEntity.GetList<GenerationList>("api/TableGenerator/list");
-            var gen = CollectionViewSource.GetDefaultView(GenList);
-            gen.Filter = p => (p as GenerationList).DeviceEnd == 4;
+            //var gen = CollectionViewSource.GetDefaultView(GenList);
+            //gen.Filter = p => (p as GenerationList).DeviceEnd == 4;
+            foreach (GenerationList d in GenList){
+                d.Buildings = Buildings; d.Rooms = Rooms;
+                d.DevCrossBegin = GetBox(d.CrossBegin, d.DeviceBegin);
+                d.DevCrossEnd = GetBox(d.CrossEnd, d.DeviceEnd);
+            }
             var collectionView = CollectionViewSource.GetDefaultView(DevicePeople);
-            collectionView.Filter = p => (p as DevicePersonDto).Device == GenList[5].DeviceEnd;
+            collectionView.Filter = p => (p as DevicePersonDto).Device == GenList[0].DeviceEnd;
+
+            GenChain = GetEntity.GetList<GenerationChains>($"api/TableGenerator/{GenList[0].PairEnd}");
+            foreach (GenerationChains d in GenChain) {
+                d.Buildings = Buildings; d.Rooms = Rooms;
+                d.DevCross = GetBox(d.Cross, d.Device);
+             }
+            GenNumberIn = GetEntity.GetList<NumberInDto>("api/NumberIn/all");
+            var numinView = CollectionViewSource.GetDefaultView(GenNumberIn);
+            numinView.Filter = p => (p as NumberInDto).PairAts == GenList[0].PairBegin;
+
+            GenNumberOut = GetEntity.GetList<NumberOutDto>("api/NumberOut/all");
+            foreach (NumberOutDto d in GenNumberOut) d.Operators = Operators;
+            var numoutView = CollectionViewSource.GetDefaultView(GenNumberOut);
+            numoutView.Filter = p => (p as NumberOutDto).PairAts == GenList[0].PairBegin;
+
         }
 
-
-
+        public ObservableCollection<DeviceModelDto> Models { get; set; }
+        public ObservableCollection<DepartDto> Departs { get; set; }
+        public ObservableCollection<CrossDto> Crosses { get; set; }
+        public ObservableCollection<BuildingDto> Buildings { get; set; }
+        public ObservableCollection<RoomDto> Rooms { get; set; }
+        public ObservableCollection<DeviceDto> Devices { get; set; }
+        public ObservableCollection<NumberInDto> GenNumberIn { get; set; }
+        public ObservableCollection<NumberOutDto> GenNumberOut { get; set; }
         public ObservableCollection<GenerationList> GenList { get; set; }
+        public ObservableCollection<GenerationChains> GenChain { get; set; }
+        public ObservableCollection<PersonDto> People { get; set; }
+        public ObservableCollection<OperatorDto> Operators { get; set; }
+        public ObservableCollection<DevicePersonDto> DevicePeople { get; set; }
+
+        public string GetBox(int? cross, int? device)
+        {
+            string result = string.Empty;
+            if (device != null) result = Models.FirstOrDefault(x => x.ModelId == Devices.FirstOrDefault(x => x.DeviceId == device).Model).ModelName;
+            if (cross != null) result += Crosses.FirstOrDefault(x => x.CrossId == cross).CrossName;
+            return result;
+        }
+        private GenerationList selectedListItem;
         public GenerationList SelectedListItem
         {
             get { return selectedListItem; }
-            set
-            {
+            set {
                 selectedListItem = value;
                 OnPropertyChanged("SelectedListItem");
-            }
-        }
-        public ObservableCollection<PersonDto> People { get; set; }
-        public PersonDto SelectedPerson
-        {
-            get { return selectedPerson; }
-            set { selectedPerson = value;
-                OnPropertyChanged("SelectedPerson");
-            }
-        }
-        public ObservableCollection<DevicePersonDto> DevicePeople { get; set; }
-        public DevicePersonDto SelectedDevicePerson
-        {
-            get { return selectedDevicePerson; }
-            set
-            {
-                selectedDevicePerson = value;
-                OnPropertyChanged("SelectedDevicePerson");
             }
         }
 

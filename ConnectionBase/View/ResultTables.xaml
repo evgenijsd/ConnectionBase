@@ -18,32 +18,149 @@
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="10*" />
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="listChain" Grid.Row="0" Grid.Column="0" IsReadOnly="True" >
-
+            <DataGrid x:Name="listChain" ItemsSource="{Binding GenChain}" Grid.Row="0" Grid.Column="0" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Бокс /&#10;устройство" Binding="{Binding Path=DevCross}" />
+                    <DataGridTextColumn Header="№ п.&#10;цепь" Binding="{Binding Path=PairNum, StringFormat=D3}" />
+                    <DataGridTemplateColumn Header="Сооруж.">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Buildings}" 
+                                      DisplayMemberPath="BuildingName" 
+                                      SelectedValue="{Binding Building}"
+                                      SelectedValuePath="BuildingId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Помещ." Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Rooms}" 
+                                      DisplayMemberPath="RoomName" 
+                                      SelectedValue="{Binding Room}"
+                                      SelectedValuePath="RoomId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="1" Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="listNumIn" IsReadOnly="True">
-
+                <DataGrid x:Name="listNumIn" ItemsSource="{Binding GenNumberIn}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Номер&#10;внутренний" Binding="{Binding Path=Number_In}" Width="*" />
+                    </DataGrid.Columns>
                 </DataGrid>
-                <DataGrid x:Name="listNumOut" Grid.Column="1" IsReadOnly="True" >
-
+                <DataGrid x:Name="listNumOut" ItemsSource="{Binding GenNumberOut}" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Номер&#10;городской" Binding="{Binding Path=Number_Out}" Width="*"/>
+                        <DataGridTemplateColumn Header="Оператор" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Operators}" 
+                                      DisplayMemberPath="OperatorName" 
+                                      SelectedValue="{Binding Operator}"
+                                      SelectedValuePath="OperatorId" >
+                                        <ComboBox.Resources>
+                                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                        </ComboBox.Resources>
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
 
-            <DataGrid x:Name="listGrid" ItemsSource="{Binding GenList}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" >
-
-            </DataGrid>
-            <DataGrid x:Name="listPeople" ItemsSource="{Binding DevicePeople}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False" >
+            <DataGrid x:Name="listGrid" ItemsSource="{Binding GenList}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Device}" />
-                    <DataGridTemplateColumn Header="ФИО абонента">
+                    <DataGridTextColumn Header="   Бокс устройство   " Binding="{Binding Path=DevCrossBegin}" Width="*"/>
+                    <DataGridTextColumn Header="№ пары нач.цепь" Binding="{Binding Path=PairNumBegin, StringFormat=D3}" Width="*"/>
+                    <DataGridTemplateColumn Header="   Сооружение   " Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Buildings}" 
+                                      DisplayMemberPath="BuildingName" 
+                                      SelectedValue="{Binding BuildingBegin}"
+                                      SelectedValuePath="BuildingId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="  Помещение   " Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Rooms}" 
+                                      DisplayMemberPath="RoomName" 
+                                      SelectedValue="{Binding RoomBegin}"
+                                      SelectedValuePath="RoomId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Бокс устройство" Binding="{Binding Path=DevCrossEnd}" Width="*"/>
+                    <DataGridTextColumn Header="№ пары кон.цепь" Binding="{Binding Path=PairNumEnd, StringFormat=D3}" Width="*"/>
+                    <DataGridTemplateColumn Header="Сооружение" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Buildings}" 
+                                      DisplayMemberPath="BuildingName" 
+                                      SelectedValue="{Binding BuildingEnd}"
+                                      SelectedValuePath="BuildingId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Помещение" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Rooms}" 
+                                      DisplayMemberPath="RoomName" 
+                                      SelectedValue="{Binding RoomEnd}"
+                                      SelectedValuePath="RoomId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="listPeople" ItemsSource="{Binding DevicePeople}" IsSynchronizedWithCurrentItem="True"
+                      SelectedItem="{Binding SelectedListItem, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="ФИО абонента/ответственного" Width="3*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -51,6 +168,36 @@
                                       DisplayMemberPath="PersonName" 
                                       SelectedValue="{Binding Person}"
                                       SelectedValuePath="PersonId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Должность" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding People}" 
+                                      DisplayMemberPath="Position" 
+                                      SelectedValue="{Binding Person}"
+                                      SelectedValuePath="PersonId" >
+                                    <ComboBox.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                                    </ComboBox.Resources>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Отдел" Width="6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox IsEnabled="False" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                    ItemsSource="{Binding Departs}" 
+                                      DisplayMemberPath="DepartName" 
+                                      SelectedValue="{Binding Depart}"
+                                      SelectedValuePath="DepartId" >
                                     <ComboBox.Resources>
                                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
                                     </ComboBox.Resources>
@@ -76,8 +223,9 @@
         <Label Content="Помещение" FontSize="15" HorizontalAlignment="Left" Margin="514,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Сооружение" FontSize="15" HorizontalAlignment="Left" Margin="380,9,0,0" VerticalAlignment="Top"/>
         <Label Content="Кросс" FontSize="15" HorizontalAlignment="Left" Margin="667,11,0,0" VerticalAlignment="Top"/>
-        <Label Content="Отдел" FontSize="15" HorizontalAlignment="Left" Margin="815,10,0,0" VerticalAlignment="Top"/>
-        <Button Content="Фильтр" HorizontalAlignment="Left" Margin="973,29,0,0" VerticalAlignment="Top" Width="147" Height="34"/>
+        <Label Content="{Binding SelectedListItem.DeviceEnd}" FontSize="15" HorizontalAlignment="Left" Margin="815,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Фильтр" HorizontalAlignment="Left" Margin="973,29,0,0" VerticalAlignment="Top" Width="147" Height="34"
+                />
 
     </Grid>
 </Window>

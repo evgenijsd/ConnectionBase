@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace ConnectionBase.Model
@@ -30,6 +31,11 @@ namespace ConnectionBase.Model
         public int PairNumEnd { get => pairNumEnd; set { pairNumEnd = value; OnPropertyChanged("PairNumEnd"); } }
         public int? BuildingEnd { get => buildingEnd; set { buildingEnd = value; OnPropertyChanged("BuildingEnd"); } }
         public int? RoomEnd { get => roomEnd; set { roomEnd = value; OnPropertyChanged("RoomEnd"); } }
+        public string DevCrossBegin { get; set; }
+        public string DevCrossEnd { get; set; }
+
+        public ObservableCollection<BuildingDto> Buildings { get; set; }
+        public ObservableCollection<RoomDto> Rooms { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

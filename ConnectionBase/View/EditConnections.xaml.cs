@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConnectionBase.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace ConnectionBase.View
         public EditConnections()
         {
             InitializeComponent();
+
+            DataContext = new EditConnectiosViewModel();
         }
     }
 }
