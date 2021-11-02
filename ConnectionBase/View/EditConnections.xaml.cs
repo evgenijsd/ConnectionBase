@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ConnectionBase.View
 {
@@ -20,9 +21,30 @@ namespace ConnectionBase.View
     /// </summary>
     public partial class EditConnections : Window
     {
+        private DispatcherTimer timer;
+
         public EditConnections()
         {
             InitializeComponent();
+
+            
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+
+            timer.Tick += new EventHandler(timer_Tick);
+
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+
+        {
+            timer.Stop();
 
             DataContext = new EditConnectiosViewModel();
         }

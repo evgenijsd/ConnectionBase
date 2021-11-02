@@ -8,5 +8,9 @@
         public int? PairIn { get; set; }
         public bool? BreakIn { get; set; }
         public bool? PairAb { get; set; }
+
+        public string DevCross { get; set; }
+        public string DevCrossIn { get; set; }
+        public int? PairNumIn { get; set; }
     }
 }

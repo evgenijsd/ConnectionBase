@@ -25,7 +25,7 @@ namespace ConnectionBase.View
         {
             InitializeComponent();
 
-            DataContext = new ResultTablesViewModels();
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +44,8 @@ namespace ConnectionBase.View
 
         {
             timer.Stop();
+
+            DataContext = new ResultTablesViewModels();
         }
     }
 }

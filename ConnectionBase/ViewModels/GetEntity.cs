@@ -28,5 +28,19 @@ namespace ConnectionBase.ViewModels
             }
             return list;
         }
+        public static T GetById<T>(string path)
+        {
+            T result = default(T);
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(APP_PATH);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage httpResponse = client.GetAsync(APP_PATH + path).Result;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var json = httpResponse.Content.ReadAsStringAsync().Result;
+                result = JsonConvert.DeserializeObject<T>(json);
+            }
+            return result;
+        }
     }
 }

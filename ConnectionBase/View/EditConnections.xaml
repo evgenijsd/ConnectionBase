@@ -5,9 +5,166 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectionBase.View"
         mc:Ignorable="d"
-        Title="EditConnections" Height="700" Width="1300"
-        WindowStartupLocation="CenterScreen">
+        Title="Редактирование соединений" Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+    <Window.Resources>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label Content="Соединения" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <GroupBox Header="Входящая пара" Width="200" Height="250" Margin="50,10,470,100" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Кросс:" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center"/>
+                    <Label Content="{Binding DevCrossIn}" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                    <Label Content="№ пары:" Grid.Row="1" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Center"/>
+                    <Label Content="{Binding PairNumIn}" ContentStringFormat="D3" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                    <Label Content="Сооружение:" Grid.Row="2" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <Label Content="{Binding BuildingIn}" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                    <Label Content="Помещение:" Grid.Row="3" HorizontalAlignment="Left" Margin="8,4,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{Binding RoomIn}" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="87,4,0,0"/>
+                    <Button Content="Найти" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="30"/>
+                    <Button Content="Установить как текущую" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="150"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Текущая пара" Width="200" Height="250" Margin="530,10,100,100">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Кросс:" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center"/>
+                    <Label Content="{Binding DevCrossCurrent}" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                    <Label Content="№ пары:" Grid.Row="1" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Center"/>
+                    <Label Content="{Binding PairNumCurrent}" ContentStringFormat="D3" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                    <Label Content="Сооружение:" Grid.Row="2" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <Label Content="{Binding BuildingCurrent}" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                    <Label Content="Помещение:" Grid.Row="3" HorizontalAlignment="Left" Margin="8,4,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{Binding RoomCurrent}" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="87,4,0,0"/>
+                    <Button Content="Найти" Grid.Row="5" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Выбранная пара" VerticalAlignment="Top" Margin="20"  Height="100">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Кросс:" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center"/>
+                        <Label Content="{Binding DevCrossChoise}" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                        <Label Content="№ пары:" Grid.Column="1" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Center"/>
+                        <Label Content="{Binding PairNumChoise}" ContentStringFormat="D3" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                        <Label Content="Сооружение:" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <Label Content="{Binding BuildingChoise}" Grid.Column="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="87,0,0,0"/>
+                        <Label Content="Помещение:" Grid.Column="3" HorizontalAlignment="Left" Margin="3,0,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{Binding RoomChoise}" Grid.Column="3" HorizontalAlignment="Left"  VerticalAlignment="Center"  Margin="80,0,0,0"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Сменить входящую" Grid.Column="1" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"/>
+                        <Button Content="Как текущую" Grid.Column="4" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            <Image HorizontalAlignment="Center" Height="27" Margin="0,273,0,0" VerticalAlignment="Top" Width="131" Source="/View/strelka.png"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox ItemsSource="{Binding Path=Buildings}" DisplayMemberPath="BuildingName" SelectedValuePath="BuildingId"
+                    HorizontalAlignment="Center" Margin="0,25,0,10" Grid.Row="0" Grid.Column="0" Width="173"/>
+                <Label Content="Сооружение" HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Margin="19,0,0,0"/>
+                <ComboBox ItemsSource="{Binding Path=Crosses}" DisplayMemberPath="CrossName" SelectedValuePath="CrossId"
+                    HorizontalAlignment="Center" Margin="0,25,0,10" Grid.Row="1" Grid.Column="0" Width="173"/>
+                <Label Content="Кросс" HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Column="0" Margin="19,57,0,0" Grid.RowSpan="2"/>
+                <ComboBox ItemsSource="{Binding Path=Buildings}" DisplayMemberPath="BuildingName" SelectedValuePath="BuildingId"
+                    HorizontalAlignment="Center" Margin="0,25,0,10" Grid.Row="0" Grid.Column="1" Width="173"/>
+                <Label Content="Сооружение" HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Margin="16,-1,0,0"/>
+                <ComboBox ItemsSource="{Binding Path=Rooms}" DisplayMemberPath="RoomName" SelectedValuePath="RoomId"
+                    HorizontalAlignment="Center" Margin="0,25,0,10" Grid.Row="1" Grid.Column="1" Width="173"/>
+                <Label Content="Помещение" HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Column="1" Margin="16,57,0,0" Grid.RowSpan="2"/>
+                <Button Content="Фильтр устройство" FontSize="15" Grid.Column="1" HorizontalAlignment="Center"   Grid.Row="2" VerticalAlignment="Center" Width="160" Height="35"/>
+                <Button Content="Фильтр кросс" FontSize="15" Grid.Column="0" HorizontalAlignment="Center"   Grid.Row="2" VerticalAlignment="Center" Width="137" Height="35"/>
+            </Grid>
+            <DataGrid ItemsSource="{Binding Pairs}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Выбор кросс/&#10;устройство" Binding="{Binding Path=DevCross}" Width="5*"/>
+                    <DataGridTextColumn Header="№ пары" Binding="{Binding Path=PairNum, StringFormat=D3}" Width="3*"/>
+                    <DataGridTextColumn Header="Вход кросс/&#10;устройство" Binding="{Binding Path=DevCrossIn}" Width="5*"/>
+                    <DataGridTextColumn Header="№ пары" Binding="{Binding Path=PairNumIn, StringFormat=D3}" Width="3*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Выходящие пары" >
+                    <DataGrid Grid.Row="0" ItemsSource="{Binding PairOuts}" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="   Кросс/&#10;устройство" Binding="{Binding Path=DevCross}" Width="5*"/>
+                            <DataGridTextColumn Header="№ пары" Binding="{Binding Path=PairNum, StringFormat=D3}" Width="3*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <Button Grid.Column="1" Content="Найти" FontSize="15" VerticalAlignment="Top" Margin="5,50,5,10" Height="30"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
