@@ -39,6 +39,7 @@ namespace ConnectionBase.ViewModels
                 d.DevCrossBegin = GetBox(d.CrossBegin, d.DeviceBegin);
                 d.DevCrossEnd = GetBox(d.CrossEnd, d.DeviceEnd);
             }
+            SelectedListItem = GenList[0];
             var collectionView = CollectionViewSource.GetDefaultView(DevicePeople);
             collectionView.Filter = p => (p as DevicePersonDto).Device == GenList[0].DeviceEnd;
 
@@ -66,8 +67,8 @@ namespace ConnectionBase.ViewModels
         public ObservableCollection<DeviceDto> Devices { get; set; }
         public ObservableCollection<NumberInDto> GenNumberIn { get; set; }
         public ObservableCollection<NumberOutDto> GenNumberOut { get; set; }
-        public ObservableCollection<GenerationList> GenList { get; set; }
-        public ObservableCollection<GenerationChains> GenChain { get; set; }
+        
+        
         public ObservableCollection<PersonDto> People { get; set; }
         public ObservableCollection<OperatorDto> Operators { get; set; }
         public ObservableCollection<DevicePersonDto> DevicePeople { get; set; }
@@ -79,7 +80,20 @@ namespace ConnectionBase.ViewModels
             if (cross != null) result += Crosses.FirstOrDefault(x => x.CrossId == cross).CrossName;
             return result;
         }
-        private GenerationList selectedListItem;
+
+        private ObservableCollection<GenerationChains> genChain;
+        public ObservableCollection<GenerationChains> GenChain
+        {
+            get { return genChain; }
+            set { genChain = value; OnPropertyChanged("GenChain"); }
+        }
+        private ObservableCollection<GenerationList> genList;
+        public ObservableCollection<GenerationList> GenList
+        {
+            get { return genList; }
+            set { genList = value; OnPropertyChanged("GenList"); }
+        }
+        private GenerationList selectedListItem = new GenerationList();
         public GenerationList SelectedListItem
         {
             get { return selectedListItem; }
@@ -95,5 +109,41 @@ namespace ConnectionBase.ViewModels
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+        public ICommand SearchPhone
+        {
+            get
+            {
+                return new RelayCommand(
+                    parameter =>
+                    {
+                        MessageBox.Show($"11");
+                        /*SelectedNames.Clear();
+                        foreach (var item in AvailableNames)
+                        {
+                            SelectedNames.Add(item);
+                        }*/
+                    });
+            }
+        }
+
+        void ItemSelectedExecute()
+        {
+            //++count;
+            //UpdateLabel = string.Format("({0})+({1})", count, updateTextBox);
+            MessageBox.Show($"11");
+            MessageBox.Show($"{SelectedListItem.PairBegin}!");
+            
+        }
+
+        bool CanItemSelectedExecute()
+        {
+            return true;
+        }
+
+        public ICommand ItemSelected //ICommand name must be the same as the Button binding name in XAML 
+        {                               //<Button Content="Button" Command="{Binding UpdateLabelName}"/>
+            get { return new RelayCommand_2(ItemSelectedExecute, CanItemSelectedExecute); }
+        }                               
     }
 }

@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:ConnectionBase"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
+            <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                <Setter Property="Background" Value="White" />
+            </Style>
+        
     </Application.Resources>
 </Application>
