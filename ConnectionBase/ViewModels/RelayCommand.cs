@@ -11,9 +11,6 @@ namespace ConnectionBase.ViewModels
     /// <summary>
     /// Implements the ICommand interface
     /// </summary>
-    /// <remarks>
-    /// Thanks to Josh Smith for this code: http://msdn.microsoft.com/en-us/magazine/dd419663.aspx
-    /// </remarks>
     public class RelayCommand : ICommand
     {
         #region Fields

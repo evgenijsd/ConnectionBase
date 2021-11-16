@@ -15,7 +15,7 @@ using System.Windows.Threading;
 namespace ConnectionBase.View
 {
     /// <summary>
-    /// Логика взаимодействия для Window1.xaml
+    /// Логика взаимодействия для ResulTables.xaml
     /// </summary>
     public partial class ResulTables : Window
     {
@@ -24,8 +24,6 @@ namespace ConnectionBase.View
         public ResulTables()
         {
             InitializeComponent();
-
-            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
