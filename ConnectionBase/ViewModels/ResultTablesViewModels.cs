@@ -16,17 +16,17 @@ namespace ConnectionBase.ViewModels
 
         public ResultTablesViewModels()
         {
-            People = GetEntity.GetList<PersonDto>("api/Person/all");
-            Operators = GetEntity.GetList<OperatorDto>("api/Operator/all");
-            Crosses = GetEntity.GetList<CrossDto>("api/Cross/all");
-            Buildings = GetEntity.GetList<BuildingDto>("api/Building/all");
-            Rooms = GetEntity.GetList<RoomDto>("api/Room/all");
-            Devices = GetEntity.GetList<DeviceDto>("api/Device/all");
-            Models = GetEntity.GetList<DeviceModelDto>("api/DeviceModel/all");
-            Departs = GetEntity.GetList<DepartDto>("api/Depart/all");
+            People = GetEntity.GetList<Person>("api/Person/all");
+            Operators = GetEntity.GetList<Operator>("api/Operator/all");
+            Crosses = GetEntity.GetList<Cross>("api/Cross/all");
+            Buildings = GetEntity.GetList<Building>("api/Building/all");
+            Rooms = GetEntity.GetList<Room>("api/Room/all");
+            Devices = GetEntity.GetList<Device>("api/Device/all");
+            Models = GetEntity.GetList<DeviceModel>("api/DeviceModel/all");
+            Departs = GetEntity.GetList<Depart>("api/Depart/all");
 
-            DevicePeople = GetEntity.GetList<DevicePersonDto>("api/DevicePerson/all");
-            foreach (DevicePersonDto d in DevicePeople){
+            DevicePeople = GetEntity.GetList<DevicePerson>("api/DevicePerson/all");
+            foreach (DevicePerson d in DevicePeople){
                 d.People = People; d.Departs = Departs;
                 if (d.Person != null) d.Depart = People.FirstOrDefault(x => x.PersonId == d.Person).Depart;
             }
@@ -42,18 +42,18 @@ namespace ConnectionBase.ViewModels
             SelectedListItem = GenList[0];
         }
 
-        public ObservableCollection<DeviceModelDto> Models { get; set; }
-        public ObservableCollection<DepartDto> Departs { get; set; }
-        public ObservableCollection<CrossDto> Crosses { get; set; }
-        public ObservableCollection<BuildingDto> Buildings { get; set; }
-        public ObservableCollection<RoomDto> Rooms { get; set; }
-        public ObservableCollection<DeviceDto> Devices { get; set; }
+        public ObservableCollection<DeviceModel> Models { get; set; }
+        public ObservableCollection<Depart> Departs { get; set; }
+        public ObservableCollection<Cross> Crosses { get; set; }
+        public ObservableCollection<Building> Buildings { get; set; }
+        public ObservableCollection<Room> Rooms { get; set; }
+        public ObservableCollection<Device> Devices { get; set; }
 
         
         
-        public ObservableCollection<PersonDto> People { get; set; }
-        public ObservableCollection<OperatorDto> Operators { get; set; }
-        public ObservableCollection<DevicePersonDto> DevicePeople { get; set; }
+        public ObservableCollection<Person> People { get; set; }
+        public ObservableCollection<Operator> Operators { get; set; }
+        public ObservableCollection<DevicePerson> DevicePeople { get; set; }
 
         public string GetBox(int? cross, int? device)
         {
@@ -77,14 +77,14 @@ namespace ConnectionBase.ViewModels
             set { searchNumberOut = value; OnPropertyChanged("SearchNumberOut"); }
         }
 
-        private ObservableCollection<NumberInDto> genNumberIn;
-        public ObservableCollection<NumberInDto> GenNumberIn
+        private ObservableCollection<NumberIn> genNumberIn;
+        public ObservableCollection<NumberIn> GenNumberIn
         {
             get { return genNumberIn; }
             set { genNumberIn = value; OnPropertyChanged("GenNumberIn"); }
         }
-        private NumberInDto selectedNumInItem;
-        public NumberInDto SelectedNumInItem
+        private NumberIn selectedNumInItem;
+        public NumberIn SelectedNumInItem
         {
             get { return selectedNumInItem; }
             set
@@ -94,14 +94,14 @@ namespace ConnectionBase.ViewModels
                 TablePositionIn();
             }
         }
-        private ObservableCollection<NumberOutDto> genNumberOut;
-        public ObservableCollection<NumberOutDto> GenNumberOut
+        private ObservableCollection<NumberOut> genNumberOut;
+        public ObservableCollection<NumberOut> GenNumberOut
         {
             get { return genNumberOut; }
             set { genNumberOut = value; OnPropertyChanged("GenNumberOut"); }
         }
-        private NumberOutDto selectedNumOutItem;
-        public NumberOutDto SelectedNumOutItem
+        private NumberOut selectedNumOutItem;
+        public NumberOut SelectedNumOutItem
         {
             get { return selectedNumOutItem; }
             set
@@ -148,9 +148,9 @@ namespace ConnectionBase.ViewModels
                         SearchNumberIn = SearchNumberIn.Replace(" ", "");
                         if (!string.IsNullOrEmpty(SearchNumberIn))
                         {
-                            GenNumberIn = GetEntity.GetList<NumberInDto>("api/NumberIn/all");
+                            GenNumberIn = GetEntity.GetList<NumberIn>("api/NumberIn/all");
                             var numinView = CollectionViewSource.GetDefaultView(GenNumberIn);
-                            numinView.Filter = p => (p as NumberInDto).Number_In.Contains(SearchNumberIn);
+                            numinView.Filter = p => (p as NumberIn).Number_In.Contains(SearchNumberIn);
                         }
                     });
         }
@@ -162,9 +162,10 @@ namespace ConnectionBase.ViewModels
                         SearchNumberOut = SearchNumberOut.Replace(" ","");
                         if (!string.IsNullOrEmpty(SearchNumberOut))
                         {
-                            GenNumberOut = GetEntity.GetList<NumberOutDto>("api/NumberOut/all");
+                            GenNumberOut = GetEntity.GetList<NumberOut>("api/NumberOut/all");
+                            foreach (NumberOut d in GenNumberOut) d.Operators = Operators;
                             var numoutView = CollectionViewSource.GetDefaultView(GenNumberOut);
-                            numoutView.Filter = p => (p as NumberOutDto).Number_Out.Contains(SearchNumberOut);
+                            numoutView.Filter = p => (p as NumberOut).Number_Out.Contains(SearchNumberOut);
                         }
                     });
         }
@@ -180,7 +181,7 @@ namespace ConnectionBase.ViewModels
         public void TableChanges()
         {
             var collectionView = CollectionViewSource.GetDefaultView(DevicePeople);
-            collectionView.Filter = p => (p as DevicePersonDto).Device == SelectedListItem.DeviceEnd;
+            collectionView.Filter = p => (p as DevicePerson).Device == SelectedListItem.DeviceEnd;
 
             GenChain = GetEntity.GetList<GenerationChains>($"api/TableGenerator/{SelectedListItem.PairEnd}");
             foreach (GenerationChains d in GenChain)
@@ -188,14 +189,14 @@ namespace ConnectionBase.ViewModels
                 d.Buildings = Buildings; d.Rooms = Rooms;
                 d.DevCross = GetBox(d.Cross, d.Device);
             }
-            GenNumberIn = GetEntity.GetList<NumberInDto>("api/NumberIn/all");
+            GenNumberIn = GetEntity.GetList<NumberIn>("api/NumberIn/all");
             var numinView = CollectionViewSource.GetDefaultView(GenNumberIn);
-            numinView.Filter = p => (p as NumberInDto).PairAts == SelectedListItem.PairBegin;
+            numinView.Filter = p => (p as NumberIn).PairAts == SelectedListItem.PairBegin;
 
-            GenNumberOut = GetEntity.GetList<NumberOutDto>("api/NumberOut/all");
-            foreach (NumberOutDto d in GenNumberOut) d.Operators = Operators;
+            GenNumberOut = GetEntity.GetList<NumberOut>("api/NumberOut/all");
+            foreach (NumberOut d in GenNumberOut) d.Operators = Operators;
             var numoutView = CollectionViewSource.GetDefaultView(GenNumberOut);
-            numoutView.Filter = p => (p as NumberOutDto).PairAts == SelectedListItem.PairBegin;
+            numoutView.Filter = p => (p as NumberOut).PairAts == SelectedListItem.PairBegin;
         }
 
         public void TablePositionIn()

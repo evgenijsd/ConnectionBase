@@ -22,6 +22,7 @@ namespace ConnectionBase.View
     public partial class EditConnections : Window
     {
         private DispatcherTimer timer;
+        private object ItemSelected;
 
         public EditConnections()
         {
@@ -47,6 +48,15 @@ namespace ConnectionBase.View
             timer.Stop();
 
             DataContext = new EditConnectiosViewModel();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listGrid != null && listGrid.SelectedItem != null && ItemSelected != listGrid.SelectedItem)
+            {
+                listGrid.ScrollIntoView(listGrid.SelectedItem);
+                ItemSelected = listGrid.SelectedItem;
+            }
         }
     }
 }

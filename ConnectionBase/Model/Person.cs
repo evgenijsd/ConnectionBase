@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ConnectionBase.Model
 {
-    public partial class PersonDto : INotifyPropertyChanged
+    public partial class Person : INotifyPropertyChanged
     {
         private int personId;
         private string personName;

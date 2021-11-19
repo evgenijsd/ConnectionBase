@@ -20,6 +20,7 @@ namespace ConnectionBase.View
     public partial class ResulTables : Window
     {
         private DispatcherTimer timer;
+        private object ItemSelected;
 
         public ResulTables()
         {
@@ -44,6 +45,15 @@ namespace ConnectionBase.View
             timer.Stop();
 
             DataContext = new ResultTablesViewModels();
+        }
+
+        private void listGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listGrid != null && listGrid.SelectedItem != null && ItemSelected != listGrid.SelectedItem)
+            {
+                listGrid.ScrollIntoView(listGrid.SelectedItem);
+                ItemSelected = listGrid.SelectedItem;
+            }
         }
     }
 }

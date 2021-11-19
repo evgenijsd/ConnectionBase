@@ -1,6 +1,6 @@
 ﻿namespace ConnectionBase.Model
 {
-    public partial class CrossDto
+    public partial class Cross
     {
         public int CrossId { get; set; }
         public string CrossName { get; set; }
@@ -8,5 +8,7 @@
         public int NumberPair { get; set; }
         public bool? Ats { get; set; }
         public int? Room { get; set; }
+
+        public int Building { get; set; }
     }
 }

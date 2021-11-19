@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConnectionBase.Model
+namespace ConnectionBase.DTO
 {
-    public class GenerationChains
+    public class GenerationChainsDto
     {
         public int PairId { get; set; }
         public int? Cross { get; set; }
@@ -17,9 +16,5 @@ namespace ConnectionBase.Model
         public int? Device { get; set; }
         public int? Building { get; set; }
         public int? Room { get; set; }
-        public string DevCross { get; set; }
-
-        public ObservableCollection<Building> Buildings { get; set; }
-        public ObservableCollection<Room> Rooms { get; set; }
     }
 }

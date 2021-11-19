@@ -1,4 +1,4 @@
-﻿namespace ConnectionBase.Model
+﻿namespace ConnectionBase.DTO
 {
     public partial class OperatorDto
     {

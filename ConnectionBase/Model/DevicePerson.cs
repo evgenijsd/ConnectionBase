@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ConnectionBase.Model
 {
-    public partial class DevicePersonDto
+    public partial class DevicePerson
     {
         private int devicePersonId;
         private int device;
@@ -15,8 +15,8 @@ namespace ConnectionBase.Model
         public int Device { get => device; set { device = value; OnPropertyChanged("Device"); } }
         public int? Person { get => person; set { person = value; OnPropertyChanged("Person"); } }
         public int? Depart { get => depart; set { depart = value; OnPropertyChanged("Depart"); } }
-        public ObservableCollection<PersonDto> People { get; set; }
-        public ObservableCollection<DepartDto> Departs { get; set; }
+        public ObservableCollection<Person> People { get; set; }
+        public ObservableCollection<Depart> Departs { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

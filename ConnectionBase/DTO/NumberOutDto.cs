@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace ConnectionBase.Model
+﻿namespace ConnectionBase.DTO
 {
     public partial class NumberOutDto
     {
@@ -8,7 +6,5 @@ namespace ConnectionBase.Model
         public string Number_Out { get; set; }
         public int? PairAts { get; set; }
         public int? Operator { get; set; }
-
-        public ObservableCollection<OperatorDto> Operators { get; set; }
     }
 }

@@ -62,12 +62,12 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="listNumIn" ItemsSource="{Binding GenNumberIn}" SelectedItem="{Binding Path=SelectedNumInItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid x:Name="listNumIn" ItemsSource="{Binding GenNumberIn}" SelectedItem="{Binding Path=SelectedNumInItem}" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Номер&#10;внутренний" Binding="{Binding Path=Number_In}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <DataGrid x:Name="listNumOut" ItemsSource="{Binding GenNumberOut}" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid x:Name="listNumOut" ItemsSource="{Binding GenNumberOut}" SelectedItem="{Binding Path=SelectedNumOutItem}" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Номер&#10;городской" Binding="{Binding Path=Number_Out}" Width="*"/>
                         <DataGridTemplateColumn Header="Оператор" Width="*">
@@ -89,7 +89,8 @@
                 </DataGrid>
             </Grid>
 
-            <DataGrid x:Name="listGrid" ItemsSource="{Binding GenList}" SelectedItem="{Binding Path=SelectedListItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Extended" SelectionUnit="FullRow" Grid.Row="0" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid x:Name="listGrid" ItemsSource="{Binding GenList}" SelectedItem="{Binding Path=SelectedListItem}" SelectionMode="Extended" SelectionUnit="FullRow" Grid.Row="0" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="listGrid_SelectionChanged" CellStyle="{StaticResource DataGridCellStyle1}" >
+                
                 <DataGrid.Columns>
                     <DataGridTextColumn Header=" Кросс /устройство   /&#10;   начало цепочки" Binding="{Binding Path=DevCrossBegin}" Width="3*"/>
                     <DataGridTextColumn Header="№ пары /&#10;нач.цепь" Binding="{Binding Path=PairNumBegin, StringFormat=D3}" Width="2*"/>

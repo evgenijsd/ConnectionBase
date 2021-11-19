@@ -34,8 +34,8 @@ namespace ConnectionBase.Model
         public string DevCrossBegin { get; set; }
         public string DevCrossEnd { get; set; }
 
-        public ObservableCollection<BuildingDto> Buildings { get; set; }
-        public ObservableCollection<RoomDto> Rooms { get; set; }
+        public ObservableCollection<Building> Buildings { get; set; }
+        public ObservableCollection<Room> Rooms { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

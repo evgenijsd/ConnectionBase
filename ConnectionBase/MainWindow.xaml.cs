@@ -30,14 +30,18 @@ namespace ConnectionBase
         {
             ResulTables resulTables = new ResulTables();
             resulTables.Owner = this;
-            resulTables.Show();
+            this.Hide();
+            resulTables.ShowDialog();
+            this.Show();
         }
 
         private void ButtonConnection_Click(object sender, RoutedEventArgs e)
         {
             EditConnections editConnections = new EditConnections();
             editConnections.Owner = this;
-            editConnections.Show();
+            this.Hide();
+            editConnections.ShowDialog();
+            this.Show();
         }
     }
 }

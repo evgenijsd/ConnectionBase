@@ -1,6 +1,6 @@
 ﻿namespace ConnectionBase.Model
 {
-    public partial class PairDto
+    public partial class Pair
     {
         public int PairId { get; set; }
         public int? Cross { get; set; }
