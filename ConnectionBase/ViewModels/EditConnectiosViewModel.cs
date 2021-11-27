@@ -1,4 +1,6 @@
-﻿using ConnectionBase.Model;
+﻿using AutoMapper;
+using ConnectionBase.DTO;
+using ConnectionBase.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -258,7 +260,6 @@ namespace ConnectionBase.ViewModels
             BuildingChoise = building.BuildingName;
             RoomChoise = room.RoomName;
             IdPairChoise = SelectedPair.PairId;
-           // MessageBox.Show($"{SelectedPair.PairId}");
             PairOuts = GetEntity.GetList<Pair>($"api/Pair/out/{SelectedPair.PairId}");
             foreach (Pair d in PairOuts)
             {
@@ -296,7 +297,7 @@ namespace ConnectionBase.ViewModels
             get => new RelayCommand(
                     parameter =>
                     {
-                        if (SelectedPair != null) SetCurrentPair(IdPairIn);
+                        if (idPairIn > 0) SetCurrentPair(IdPairIn);
                     });
         }
         public ICommand FindPairInCommand
@@ -323,6 +324,105 @@ namespace ConnectionBase.ViewModels
                     parameter =>
                     {
                         if (SelectedPairOut != null) FindPair(SelectedPairOut.PairId);
+                    });
+        }
+        public ICommand SetChoisePairInCommand
+        {
+            get => new RelayCommand(
+                    parameter =>
+                    {
+                        if (idPairChoise == idPairCurrent)
+                        {
+                            MessageBox.Show("Выбранная и текущая пара совпадают");
+                            return;
+                        }
+                        if (idPairCurrent > 0)
+                        {
+                            MessageBoxResult m = MessageBox.Show("Установить входящую пару? (изменения в базе)", "Внимание", MessageBoxButton.OKCancel);
+                            if (m == MessageBoxResult.OK)
+                            {
+                                var pairCurrent = GetEntity.GetById<Pair>($"api/Pair/{idPairCurrent}");
+                                pairCurrent.PairIn = IdPairChoise;
+                                var config = new MapperConfiguration(cfg => cfg.CreateMap<Pair, PairDto>());
+                                var mapper = new Mapper(config);
+                                var pair = mapper.Map<Pair, PairDto>(pairCurrent);
+                                pair = GetEntity.Update<PairDto>($"api/Pair/update/", pair);
+
+                                Cross cross;
+                                Room room;
+                                Building building;
+                                Device device = new();
+                                if (pairCurrent.PairIn != null)
+                                {
+                                    int? deviceId = null;
+                                    var pairIn = GetEntity.GetById<Pair>($"api/Pair/{IdPairChoise}");
+                                    if (pairIn.Cross != null)
+                                    {
+                                        cross = Crosses.FirstOrDefault(x => x.CrossId == pairIn.Cross);
+                                        room = Rooms.FirstOrDefault(x => x.RoomId == cross.Room);
+                                        deviceId = null;
+                                    }
+                                    else
+                                    {
+                                        device = Devices.FirstOrDefault(x => x.Pair == pairIn.PairId);
+                                        deviceId = device.DeviceId;
+                                        room = Rooms.FirstOrDefault(x => x.RoomId == device.Room);
+                                    }
+                                    pairIn.DevCross = GetBox(pairIn.Cross, deviceId).ToString();
+                                    building = Buildings.FirstOrDefault(x => x.BuildingId == room.Building);
+
+                                    IdPairIn = pairIn.PairId;
+                                    DevCrossIn = pairIn.DevCross;
+                                    PairNumIn = $"{pairIn.PairNum:D3}";
+                                    BuildingIn = building.BuildingName;
+                                    RoomIn = room.RoomName;
+                                    FindPair(idPairCurrent);
+                                }
+                                else
+                                {
+                                    IdPairIn = 0;
+                                    DevCrossIn = string.Empty;
+                                    PairNumIn = string.Empty;
+                                    BuildingIn = string.Empty;
+                                    RoomIn = string.Empty;
+                                }
+                            }
+                            else { }
+                        }
+                        else MessageBox.Show("Текущая пара не установлена");
+
+                    });
+        }
+
+        public ICommand DeletePairInCommand
+        {
+            get => new RelayCommand(
+                    parameter =>
+                    {
+                        if (idPairIn > 0)
+                        {
+                            MessageBoxResult m = MessageBox.Show("Отсоеденить входящую пару? (изменения в базе)", "Внимание", MessageBoxButton.OKCancel);
+                            if (m == MessageBoxResult.OK)
+                            {
+                                var pairCurrent = GetEntity.GetById<Pair>($"api/Pair/{idPairCurrent}");
+                                pairCurrent.PairIn = null;
+                                var config = new MapperConfiguration(cfg => cfg.CreateMap<Pair, PairDto>());
+                                var mapper = new Mapper(config);
+                                var pair = mapper.Map<Pair, PairDto>(pairCurrent);
+                                pair = GetEntity.Update<PairDto>($"api/Pair/update/", pair);
+
+                                IdPairIn = 0;
+                                DevCrossIn = string.Empty;
+                                PairNumIn = string.Empty;
+                                BuildingIn = string.Empty;
+                                RoomIn = string.Empty;
+
+                                FindPair(idPairCurrent);
+                            }
+                            else { }
+                        }
+                        else MessageBox.Show("Входящая пара не установлена");
+
                     });
         }
 

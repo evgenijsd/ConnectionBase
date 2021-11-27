@@ -14,13 +14,13 @@ namespace ConnectionBase.ViewModels
     {
         private const string APP_PATH = "http://localhost:16802/";
 
-        public static async Task<ObservableCollection<T>> GetList<T>(string path)
+        public static ObservableCollection<T> GetList<T>(string path)
         {
             ObservableCollection<T> list = new();
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(APP_PATH);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage httpResponse = await client.GetAsync(APP_PATH + path);
+            HttpResponseMessage httpResponse = client.GetAsync(APP_PATH + path).Result;
             if (httpResponse.IsSuccessStatusCode)
             {
                 var json = httpResponse.Content.ReadAsStringAsync().Result;
@@ -28,13 +28,13 @@ namespace ConnectionBase.ViewModels
             }
             return list;
         }
-        public static async Task<T> GetById<T>(string path)
+        public static T GetById<T>(string path)
         {
             T result = default(T);
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(APP_PATH);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage httpResponse = await client.GetAsync(APP_PATH + path);
+            HttpResponseMessage httpResponse = client.GetAsync(APP_PATH + path).Result;
             if (httpResponse.IsSuccessStatusCode)
             {
                 var json = httpResponse.Content.ReadAsStringAsync().Result;
@@ -43,13 +43,13 @@ namespace ConnectionBase.ViewModels
             return result;
         }
 
-        public static async Task<T> Update<T>(string path, T t)
+        public static T Update<T>(string path, T t)
         {
             T result = default(T);
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(APP_PATH);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage httpResponse = await client.PutAsync(APP_PATH + path, t);
+            HttpResponseMessage httpResponse = client.PutAsJsonAsync<T>(APP_PATH + path, t).Result;
             if (httpResponse.IsSuccessStatusCode)
             {
                 var json = httpResponse.Content.ReadAsStringAsync().Result;

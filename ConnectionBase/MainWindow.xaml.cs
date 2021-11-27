@@ -28,7 +28,7 @@ namespace ConnectionBase
 
         private void ButtonResult_Click(object sender, RoutedEventArgs e)
         {
-            ResulTables resulTables = new ResulTables();
+            ResulTables resulTables = new();
             resulTables.Owner = this;
             this.Hide();
             resulTables.ShowDialog();
@@ -37,10 +37,20 @@ namespace ConnectionBase
 
         private void ButtonConnection_Click(object sender, RoutedEventArgs e)
         {
-            EditConnections editConnections = new EditConnections();
+            EditConnections editConnections = new();
             editConnections.Owner = this;
             this.Hide();
             editConnections.ShowDialog();
+            this.Show();
+        }
+
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditWindow editWindow = new();
+            editWindow.Owner = this;
+            this.Hide();
+            editWindow.ShowDialog();
             this.Show();
         }
     }

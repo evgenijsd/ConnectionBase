@@ -40,7 +40,7 @@
                     <Label Content="{Binding RoomIn}" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="87,4,0,0"/>
                     <Button Content="Найти" Command="{Binding FindPairInCommand}" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="25"/>
                     <Button Content="Установить как текущую" Command="{Binding SetCurrentPairInCommand}"  Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="150"/>
-                    <Button Content="Отсоеденить" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="25"/>
+                    <Button Content="Отсоеденить" Command="{Binding DeletePairInCommand}" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="25"/>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Текущая пара" Width="200" Height="250" Margin="530,10,100,100">
@@ -107,7 +107,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="Сменить входящую" Grid.Column="1" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"/>
+                        <Button Content="Подключить входящую" Command="{Binding SetChoisePairInCommand}" Grid.Column="1" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="135"/>
                         <Button Content="Как текущую" Command="{Binding SetCurrentPairCommand}" Grid.Column="4" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"/>
                     </Grid>
                 </Grid>
