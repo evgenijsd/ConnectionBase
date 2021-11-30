@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectionBase.View"
         mc:Ignorable="d"
-        Title="EditBuilding" Height="450" Width="800">
+        Title="Редактирование сооружений" Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="1" x:Name="listBuilding" ItemsSource="{Binding Buildings}"  SelectedItem="{Binding Path=SelectedBuilding}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,-5,0,5" CellStyle="{StaticResource DataGridCellStyle1}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" FontSize="18" Binding="{Binding Path=BuildingName}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <GroupBox Header="Сооружение" Margin="240,156,203,235" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Наименование:" Grid.Row="0" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Text="{Binding NameBuilding, UpdateSourceTrigger=PropertyChanged}" Margin="5,7,5,7"/>
+                <Button Content="Добавить" Command="{Binding AddBuildingCommand}" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="25" IsEnabled="{Binding IsNull}"/>
+                <Button Content="Обновить" Command="{Binding UpdateBuildingCommand}"  Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="150" IsEnabled="{Binding IsSelect}"/>
+                <Button Content="Удалить" Command="{Binding DeleteBuildingCommand}" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="25" IsEnabled="{Binding IsSelect}"/>
+            </Grid>
+        </GroupBox>
+        <Label Content="Сооружение" FontSize="15" HorizontalAlignment="Left" Margin="440,13,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding SearchBuilding, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="410,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Height="26"/>
+        <Button Content="Найти" Command="{Binding SearchBuildingCommand}" HorizontalAlignment="Left" Margin="542,53,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.024,-0.12" Height="26" Width="57"/>
+
     </Grid>
 </Window>

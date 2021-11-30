@@ -57,5 +57,34 @@ namespace ConnectionBase.ViewModels
             }
             return result;
         }
+
+        public static int Add<T>(string path, T t)
+        {
+            int result = 0;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(APP_PATH);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage httpResponse = client.PostAsJsonAsync<T>(APP_PATH + path, t).Result;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var json = httpResponse.Content.ReadAsStringAsync().Result;
+                result = JsonConvert.DeserializeObject<int>(json);
+            }
+            return result;
+        }
+
+        public static bool Delete(string path)
+        {
+            bool result = false;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(APP_PATH);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage httpResponse = client.DeleteAsync(APP_PATH + path).Result;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

@@ -145,8 +145,7 @@ namespace ConnectionBase.ViewModels
             get => new RelayCommand(
                     parameter =>
                     {
-                        SearchNumberIn = SearchNumberIn.Replace(" ", "");
-                        if (!string.IsNullOrEmpty(SearchNumberIn))
+                        if (!string.IsNullOrEmpty(SearchNumberIn) && !string.IsNullOrWhiteSpace(SearchNumberIn))
                         {
                             GenNumberIn = GetEntity.GetList<NumberIn>("api/NumberIn/all");
                             var numinView = CollectionViewSource.GetDefaultView(GenNumberIn);
@@ -159,8 +158,7 @@ namespace ConnectionBase.ViewModels
             get => new RelayCommand(
                     parameter =>
                     {
-                        SearchNumberOut = SearchNumberOut.Replace(" ","");
-                        if (!string.IsNullOrEmpty(SearchNumberOut))
+                        if (!string.IsNullOrEmpty(SearchNumberOut) && !string.IsNullOrWhiteSpace(SearchNumberOut))
                         {
                             GenNumberOut = GetEntity.GetList<NumberOut>("api/NumberOut/all");
                             foreach (NumberOut d in GenNumberOut) d.Operators = Operators;
