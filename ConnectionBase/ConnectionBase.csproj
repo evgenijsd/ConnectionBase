@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\strelka.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="View\" />
-    <Folder Include="ViewModel\" />
+    <Resource Include="View\strelka.png" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace ConnectionBase.API.DTO
+﻿namespace ConnectionBase.DTO
 {
     public partial class NumberInDto
     {

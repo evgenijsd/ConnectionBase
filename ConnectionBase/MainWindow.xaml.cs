@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConnectionBase.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,37 @@ namespace ConnectionBase
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ButtonResult_Click(object sender, RoutedEventArgs e)
+        {
+            ResulTables resulTables = new();
+            resulTables.Owner = this;
+            this.Hide();
+            resulTables.ShowDialog();
+            this.Show();
+        }
+
+        private void ButtonConnection_Click(object sender, RoutedEventArgs e)
+        {
+            EditConnections editConnections = new();
+            editConnections.Owner = this;
+            this.Hide();
+            editConnections.ShowDialog();
+            this.Show();
+        }
+
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditWindow editWindow = new();
+            editWindow.Owner = this;
+            this.Hide();
+            editWindow.ShowDialog();
+            this.Show();
         }
     }
 }

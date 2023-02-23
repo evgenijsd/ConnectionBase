@@ -1,0 +1,45 @@
+﻿<Window x:Class="ConnectionBase.View.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectionBase.View"
+        mc:Ignorable="d"
+        Title="Редактирование" Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="50">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Content="Сооружение" Grid.Row="0" Grid.Column="0" FontSize="20"  Click="ButtonBuilding_Click" />
+            <Button Content="Отдел" Grid.Row="0" Grid.Column="2" FontSize="20" Click="ButtonDepart_Click" />
+                <Button Content="Кросс" Grid.Row="0" Grid.Column="4" FontSize="20" Click="ButtonCross_Click" />
+            <Button Content="Помещение" Grid.Row="2" Grid.Column="0" FontSize="20"  Click="ButtonRoom_Click" />
+            <Button Content="Абонент" Grid.Row="2" Grid.Column="2" FontSize="20" Click="ButtonPerson_Click" />
+            <Button Content="Номер внутренний" Grid.Row="2" Grid.Column="4" FontSize="20" Click="ButtonNumberIn_Click"/>
+            <Button Content="Оператор" Grid.Row="6" Grid.Column="4" FontSize="20"  Click="ButtonOperator_Click" />
+            <Button Content="Устройство" Grid.Row="6" Grid.Column="0" FontSize="20" Click="ButtonDevice_Click" />
+            <Button Content="Номер городской" Grid.Row="4" Grid.Column="4" FontSize="20" Click="ButtonNumberOut_Click"/>
+            <Button Content="Модель" Grid.Row="8" Grid.Column="0" FontSize="20" Click="ButtonModel_Click" />
+        </Grid>
+    </Grid>
+</Window>
